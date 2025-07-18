@@ -39,13 +39,13 @@ body {
 body::before {
     content: '';
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 20% 20%, rgba(78, 205, 196, 0.06) 0%, transparent 60%),
-                radial-gradient(circle at 80% 80%, rgba(255, 107, 107, 0.06) 0%, transparent 60%),
-                radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.04) 0%, transparent 60%);
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 35% 35%, rgba(78, 205, 196, 0.06) 0%, transparent 70%),
+                radial-gradient(circle at 65% 65%, rgba(255, 107, 107, 0.06) 0%, transparent 70%),
+                radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.04) 0%, transparent 70%);
     animation: globalGlow 12s ease-in-out infinite;
     z-index: -1;
     pointer-events: none;
@@ -57,12 +57,12 @@ body::before {
         opacity: 1;
     }
     33% { 
-        transform: translate(20px, -20px) scale(1.1);
-        opacity: 0.8;
+        transform: translate(10px, -10px) scale(1.02);
+        opacity: 0.9;
     }
     66% { 
-        transform: translate(-20px, 20px) scale(0.9);
-        opacity: 0.9;
+        transform: translate(-10px, 10px) scale(0.98);
+        opacity: 0.95;
     }
 }
 
@@ -83,10 +83,25 @@ body::before {
 }
 
 
-.title-accent {
+.title-word-1 {
+    color: #2E8B57;
     position: relative;
     display: inline-block;
-    animation: wobble 2s ease-in-out infinite;
+    animation: gentleFloat1 4s ease-in-out infinite;
+}
+
+.title-word-2 {
+    color: #4169E1;
+    position: relative;
+    display: inline-block;
+    animation: gentleFloat2 5s ease-in-out infinite;
+}
+
+.title-word-3 {
+    color: #DC143C;
+    position: relative;
+    display: inline-block;
+    animation: gentleFloat3 6s ease-in-out infinite;
 }
 
 .subtitle {
@@ -106,7 +121,7 @@ body::before {
     font-size: 1.8rem;
     font-weight: 800;
     margin-bottom: 1.5rem;
-    color: var(--text-headline);
+    color: var(--accent-primary);
     text-shadow: 2px 2px 0 var(--shadow-color);
 }
 
@@ -115,6 +130,17 @@ body::before {
     padding: 4rem 1rem 3rem;
     text-align: center;
     position: relative;
+}
+
+/* Header Stars */
+.header-stars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -10;
 }
 
 /* Main Content */
@@ -135,7 +161,7 @@ body::before {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 1;
+    z-index: -10;
 }
 
 .decoration {
@@ -148,51 +174,7 @@ body::before {
     animation-timing-function: ease-in-out;
 }
 
-/* Star Positioning and Animations */
-.star-1 {
-    top: 10%;
-    left: 5%;
-    animation: float 6s ease-in-out infinite, rotate 12s linear infinite;
-    animation-delay: 0s;
-}
-
-.star-2 {
-    top: 30%;
-    right: 8%;
-    animation: float 7s ease-in-out infinite, rotate 10s linear infinite;
-    animation-delay: 2s;
-}
-
-.star-3 {
-    bottom: 20%;
-    left: 3%;
-    animation: float 5s ease-in-out infinite, rotate 8s linear infinite;
-    animation-delay: 4s;
-}
-
-
-/* Geometric Shape Positioning and Animations */
-.triangle-1 {
-    top: 50%;
-    left: 2%;
-    animation: bounce 3s ease-in-out infinite;
-    animation-delay: 0.5s;
-}
-
-.circle-1 {
-    top: 60%;
-    right: 5%;
-    animation: pulse 4s ease-in-out infinite;
-    animation-delay: 2.5s;
-}
-
-
-.lightning-1 {
-    bottom: 35%;
-    right: 3%;
-    animation: flash 2s ease-in-out infinite;
-    animation-delay: 0.8s;
-}
+/* Generated stars will have their positioning set by JavaScript */
 
 /* Card Components */
 .card {
@@ -202,6 +184,7 @@ body::before {
     box-shadow: 8px 8px 0 var(--shadow-color);
     position: relative;
     overflow: visible;
+    z-index: 1;
 }
 
 .main-card {
@@ -427,6 +410,8 @@ body::before {
 /* Examples Section */
 .examples-section {
     margin-bottom: 3rem;
+    position: relative;
+    z-index: 1;
 }
 
 .examples-header {
@@ -501,6 +486,8 @@ body::before {
 .footer {
     padding: 2rem 1rem;
     text-align: center;
+    position: relative;
+    z-index: 1;
 }
 
 .footer-text {
@@ -588,7 +575,7 @@ body::before {
     
     
     /* Hide some decorations on very small screens */
-    .lightning-1 {
+    .generated-star:nth-child(n+6) {
         display: none;
     }
 }
@@ -666,26 +653,22 @@ body::before {
 }
 
 
-@keyframes bounce {
-    0%, 100% { transform: translateY(0px) scale(1); }
-    50% { transform: translateY(-15px) scale(1.1); }
+
+@keyframes gentleFloat1 {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
 }
 
-@keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.2); opacity: 1; }
+@keyframes gentleFloat2 {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-6px); }
 }
 
-@keyframes wiggle {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(5deg); }
-    75% { transform: rotate(-5deg); }
+@keyframes gentleFloat3 {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
 }
 
-@keyframes flash {
-    0%, 50%, 100% { opacity: 0.8; }
-    25%, 75% { opacity: 1; transform: scale(1.1); }
-}
 
 @keyframes sparkleOrbit {
     0% { 

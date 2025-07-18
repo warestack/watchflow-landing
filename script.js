@@ -22,6 +22,7 @@ const API_ENDPOINT = 'https://api.example.com/generate-rule';
 document.addEventListener('DOMContentLoaded', function() {
     initializeEventListeners();
     hideAllStates();
+    generateRandomStars();
 });
 
 // Event Listeners
@@ -363,3 +364,4 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+

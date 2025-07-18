@@ -87,7 +87,8 @@ body::before {
     color: #2E8B57;
     position: relative;
     display: inline-block;
-    animation: gentleFloat1 4s ease-in-out infinite;
+    animation: playfulFloat 8s ease-in-out infinite;
+    animation-delay: 3s;
 }
 
 .title-word-2 {
@@ -667,6 +668,18 @@ body::before {
 @keyframes gentleFloat3 {
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-10px); }
+}
+
+@keyframes playfulFloat {
+    0%, 90% { transform: translateY(0px) rotate(0deg); }
+    25% { transform: translateY(-8px) rotate(0deg); }
+    50% { transform: translateY(0px) rotate(0deg); }
+    75% { transform: translateY(-8px) rotate(0deg); }
+    92% { transform: translateY(-4px) rotate(5deg); }
+    94% { transform: translateY(-4px) rotate(-5deg); }
+    96% { transform: translateY(-4px) rotate(3deg); }
+    98% { transform: translateY(-4px) rotate(-2deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
 }
 
 

@@ -1,28 +1,90 @@
 // Star generation system
 function generateRandomStars() {
     const colors = ['#FFD700', '#4ECDC4', '#FF6B6B', '#95E1D3'];
-    const headerStars = 4;
-    const mainStars = 12;
-    const minDistance = 100; // Minimum distance between stars to prevent clustering
+    const leftStars = 8;
+    const rightStars = 8;
+    const minDistance = 60; // Smaller distance for better coverage while preventing clustering
     let globalStarIndex = 0;
     
-    // Generate header stars
-    globalStarIndex = generateStarsInArea('header-stars', headerStars, colors, minDistance, {
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        excludeCenter: true // Avoid placing stars over the title
-    }, globalStarIndex);
+    // Generate left margin stars
+    globalStarIndex = generateStarsInMargin('floating-decorations', leftStars, colors, minDistance, 'left', globalStarIndex);
     
-    // Generate main content stars
-    generateStarsInArea('floating-decorations', mainStars, colors, minDistance, {
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        excludeCenter: false
-    }, globalStarIndex);
+    // Generate right margin stars
+    generateStarsInMargin('floating-decorations', rightStars, colors, minDistance, 'right', globalStarIndex);
+}
+
+function generateStarsInMargin(containerId, count, colors, minDistance, side, startIndex = 0) {
+    const container = document.querySelector(`.${containerId}`);
+    if (!container) return startIndex;
+    
+    // Clear existing stars if this is the first call
+    if (startIndex === 0) {
+        container.innerHTML = '';
+    }
+    
+    const positions = [];
+    let currentIndex = startIndex;
+    
+    // Create vertical zones for better distribution
+    const verticalZones = Math.ceil(count / 2); // 2 stars per zone for better distribution
+    const zoneHeight = 100 / verticalZones;
+    
+    for (let i = 0; i < count; i++) {
+        let position = null;
+        let attempts = 0;
+        const maxAttempts = 50;
+        
+        while (!position && attempts < maxAttempts) {
+            const candidate = generateMarginPosition(side, i, count, zoneHeight);
+            
+            if (isValidPosition(candidate, positions, minDistance / 10)) { // Convert to percentage units
+                position = candidate;
+                positions.push(position);
+            }
+            attempts++;
+        }
+        
+        if (position) {
+            createStar(container, position, colors[currentIndex % colors.length], currentIndex);
+            currentIndex++;
+        }
+    }
+    
+    return currentIndex;
+}
+
+function generateMarginPosition(side, starIndex, totalStars, zoneHeight) {
+    let x, y;
+    
+    // More even vertical distribution with guided randomness
+    const baseY = (starIndex / (totalStars - 1)) * 90; // Spread evenly from 0-90%
+    const randomOffset = (Math.random() - 0.5) * 20; // Random variation of ±10%
+    y = Math.max(5, Math.min(95, baseY + randomOffset)); // Keep within 5-95% bounds
+    
+    // Set x position based on side with varied depth
+    if (side === 'left') {
+        // Vary distance from left edge for visual interest
+        const depth = Math.random();
+        if (depth < 0.3) {
+            x = Math.random() * 8; // Close to edge (0-8%)
+        } else if (depth < 0.7) {
+            x = 8 + Math.random() * 6; // Middle distance (8-14%)
+        } else {
+            x = 14 + Math.random() * 4; // Further in (14-18%)
+        }
+    } else {
+        // Same for right side, mirrored
+        const depth = Math.random();
+        if (depth < 0.3) {
+            x = 92 + Math.random() * 8; // Close to edge (92-100%)
+        } else if (depth < 0.7) {
+            x = 86 + Math.random() * 6; // Middle distance (86-92%)
+        } else {
+            x = 82 + Math.random() * 4; // Further in (82-86%)
+        }
+    }
+    
+    return { x, y };
 }
 
 function generateStarsInArea(containerId, count, colors, minDistance, bounds, startIndex = 0) {
@@ -62,24 +124,23 @@ function generateStarsInArea(containerId, count, colors, minDistance, bounds, st
 function generateRandomPosition(bounds, isHeader) {
     let x, y;
     
-    if (isHeader) {
-        // For header stars, avoid the center area where title is
-        do {
-            x = Math.random() * 100;
-            y = Math.random() * 100;
-        } while (x > 25 && x < 75 && y > 30 && y < 70); // Exclude center area
+    // Always keep stars in left and right margins only
+    const side = Math.random() < 0.5 ? 'left' : 'right';
+    
+    if (side === 'left') {
+        // Left margin (0-20% of viewport width)
+        x = Math.random() * 20;
     } else {
-        // For main content stars, prefer edges and corners
-        const edge = Math.random();
-        if (edge < 0.5) {
-            // Top or bottom edge
-            x = Math.random() * 100;
-            y = Math.random() < 0.5 ? Math.random() * 20 : 80 + Math.random() * 20;
-        } else {
-            // Left or right edge
-            x = Math.random() < 0.5 ? Math.random() * 20 : 80 + Math.random() * 20;
-            y = Math.random() * 100;
-        }
+        // Right margin (80-100% of viewport width)
+        x = 80 + Math.random() * 20;
+    }
+    
+    if (isHeader) {
+        // For header area, stay in top portion
+        y = Math.random() * 50;
+    } else {
+        // For main content, spread across entire height
+        y = Math.random() * 100;
     }
     
     return { x, y };
@@ -109,10 +170,10 @@ function createStar(container, position, color, index) {
         </svg>
     `;
     
-    // Set position
-    star.style.position = 'absolute';
-    star.style.left = position.x + '%';
-    star.style.top = position.y + '%';
+    // Set position (fixed to viewport)
+    star.style.position = 'fixed';
+    star.style.left = position.x + 'vw';
+    star.style.top = position.y + 'vh';
     star.style.width = '40px';
     star.style.height = '40px';
     star.style.opacity = '0.8';
@@ -215,7 +276,7 @@ function startPhysicsLoop() {
                     star.physics.velocityX *= star.physics.damping;
                     star.physics.velocityY *= star.physics.damping;
                     
-                    // Get current position
+                    // Get current position (convert from vw/vh back to percentage)
                     const currentLeft = parseFloat(star.style.left) || star.physics.originalX;
                     const currentTop = parseFloat(star.style.top) || star.physics.originalY;
                     
@@ -230,9 +291,9 @@ function startPhysicsLoop() {
                     star.physics.velocityX += returnForceX;
                     star.physics.velocityY += returnForceY;
                     
-                    // Update position
-                    star.style.left = newLeft + '%';
-                    star.style.top = newTop + '%';
+                    // Update position using viewport units
+                    star.style.left = newLeft + 'vw';
+                    star.style.top = newTop + 'vh';
                     
                     // Check if star has returned close to original position
                     const distanceFromOrigin = Math.sqrt(
@@ -244,8 +305,8 @@ function startPhysicsLoop() {
                         Math.abs(star.physics.velocityX) < 0.01 && 
                         Math.abs(star.physics.velocityY) < 0.01) {
                         // Reset to original position
-                        star.style.left = star.physics.originalX + '%';
-                        star.style.top = star.physics.originalY + '%';
+                        star.style.left = star.physics.originalX + 'vw';
+                        star.style.top = star.physics.originalY + 'vh';
                         star.physics.velocityX = 0;
                         star.physics.velocityY = 0;
                         star.physics.isDisplaced = false;

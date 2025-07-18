@@ -248,6 +248,9 @@ function handleInputChange() {
 function showLoading() {
     hideAllStates();
     loadingIndicator.classList.remove('hidden');
+    requestAnimationFrame(() => {
+        loadingIndicator.classList.add('fade-in');
+    });
     analyzeBtn.disabled = true;
     analyzeBtn.textContent = 'Analyzing...';
 }
@@ -257,7 +260,23 @@ function showSuccess(rule) {
     hideAllStates();
     currentRule = rule;
     codeContent.textContent = rule;
+    
+    // Show the success alert first
+    const codeBlock = resultSection.querySelector('.code-block');
+    
+    // Ensure code block starts hidden
+    codeBlock.classList.remove('code-block-visible');
+    
     resultSection.classList.remove('hidden');
+    requestAnimationFrame(() => {
+        resultSection.classList.add('fade-in');
+        
+        // Show code block after success alert is visible
+        setTimeout(() => {
+            codeBlock.classList.add('code-block-visible');
+        }, 600);
+    });
+    
     analyzeBtn.disabled = false;
     analyzeBtn.textContent = 'Analyze';
 }
@@ -267,15 +286,27 @@ function showError(message) {
     hideAllStates();
     errorMessage.textContent = message;
     errorAlert.classList.remove('hidden');
+    requestAnimationFrame(() => {
+        errorAlert.classList.add('fade-in');
+    });
     analyzeBtn.disabled = false;
     analyzeBtn.textContent = 'Analyze';
 }
 
-// Hide all states
+// Hide all states instantly without transition
 function hideAllStates() {
+    resultSection.classList.remove('fade-in');
+    loadingIndicator.classList.remove('fade-in');
+    errorAlert.classList.remove('fade-in');
     resultSection.classList.add('hidden');
     loadingIndicator.classList.add('hidden');
     errorAlert.classList.add('hidden');
+    
+    // Reset code block visibility
+    const codeBlock = resultSection.querySelector('.code-block');
+    if (codeBlock) {
+        codeBlock.classList.remove('code-block-visible');
+    }
 }
 
 // Utility functions
@@ -332,18 +363,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Add sparkle animation trigger
-    const sparkles = document.querySelectorAll('.sparkle');
-    setInterval(() => {
-        sparkles.forEach((sparkle, index) => {
-            setTimeout(() => {
-                sparkle.style.transform = `scale(${1 + Math.random() * 0.2}) rotate(${Math.random() * 360}deg)`;
-                setTimeout(() => {
-                    sparkle.style.transform = '';
-                }, 300);
-            }, index * 200);
-        });
-    }, 5000);
 });
 
 // Add CSS for ripple effect

@@ -74,7 +74,7 @@ body::before {
     text-align: center;
     margin-bottom: 1.5rem;
     color: var(--text-headline);
-    text-shadow: 6px 6px 0 var(--accent-primary), 12px 12px 0 var(--accent-tertiary), 18px 18px 0 var(--accent-secondary);
+    
     letter-spacing: -0.02em;
     line-height: 1.1;
     animation: titleBounce 2s ease-out;
@@ -84,7 +84,7 @@ body::before {
 
 
 .title-word-1 {
-    color: #2E8B57;
+    color: #4169E1;
     position: relative;
     display: inline-block;
     animation: playfulFloat 8s ease-in-out infinite;
@@ -92,7 +92,7 @@ body::before {
 }
 
 .title-word-2 {
-    color: #4169E1;
+    color: black;
     position: relative;
     display: inline-block;
     animation: gentleFloat2 5s ease-in-out infinite;
@@ -174,11 +174,11 @@ body::before {
 
 /* Header Stars */
 .header-stars {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     pointer-events: none;
     z-index: -10;
 }
@@ -195,11 +195,11 @@ body::before {
 
 /* Floating Decorations */
 .floating-decorations {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     pointer-events: none;
     z-index: -10;
 }
@@ -361,7 +361,11 @@ body::before {
 /* Result Section */
 .result-section {
     margin-top: 2rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
+
 
 .success-alert {
     background: #E8F5E8;
@@ -420,7 +424,11 @@ body::before {
     padding: 1rem;
     margin-top: 1rem;
     box-shadow: 4px 4px 0 var(--shadow-color);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
+
 
 .error-icon {
     width: 24px;
@@ -436,6 +444,9 @@ body::before {
     box-shadow: 4px 4px 0 var(--shadow-color);
     position: relative;
     overflow: hidden;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 .code-header {
@@ -487,7 +498,11 @@ body::before {
     gap: 1rem;
     padding: 2rem;
     text-align: center;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
+
 
 .loading-animation {
     display: flex;
@@ -747,7 +762,29 @@ body::before {
 
 /* Utility Classes */
 .hidden {
-    display: none;
+    visibility: hidden;
+    opacity: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.fade-out {
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+}
+
+.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+}
+
+.code-block-visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .sr-only {
@@ -817,7 +854,7 @@ body::before {
     
     
     /* Hide some decorations on very small screens */
-    .generated-star:nth-child(n+6) {
+    .generated-star:nth-child(n+9) {
         display: none;
     }
 }
@@ -854,22 +891,6 @@ body::before {
     }
 }
 
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-@keyframes wobble {
-    0%, 100% { transform: rotate(0deg) scale(1); }
-    25% { transform: rotate(2deg) scale(1.05); }
-    75% { transform: rotate(-2deg) scale(1.05); }
-}
-
-@keyframes shadowPulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.7; }
-}
 
 @keyframes slideUp {
     0% {
@@ -884,22 +905,9 @@ body::before {
 
 
 /* Decoration Animations */
-@keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-}
-
-@keyframes rotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
 
 
 
-@keyframes gentleFloat1 {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-8px); }
-}
 
 @keyframes gentleFloat2 {
     0%, 100% { transform: translateY(0px); }

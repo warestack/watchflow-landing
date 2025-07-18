@@ -79,13 +79,22 @@
                 </div>
 
                 <div id="loadingIndicator" class="loading hidden">
-                    <svg class="spinner" viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10" fill="none" stroke="#4ECDC4" stroke-width="4" stroke-linecap="round" stroke-dasharray="31.416" stroke-dashoffset="31.416">
-                            <animate attributeName="stroke-dasharray" dur="2s" values="0 31.416;15.708 15.708;0 31.416" repeatCount="indefinite"/>
-                            <animate attributeName="stroke-dashoffset" dur="2s" values="0;-15.708;-31.416" repeatCount="indefinite"/>
-                        </circle>
-                    </svg>
-                    <span>Generating rule...</span>
+                    <div class="loading-animation">
+                        <div class="bouncing-dots">
+                            <div class="dot dot-1"></div>
+                            <div class="dot dot-2"></div>
+                            <div class="dot dot-3"></div>
+                        </div>
+                        <div class="loading-face">
+                            <div class="eyes">
+                                <div class="eye eye-left"></div>
+                                <div class="eye eye-right"></div>
+                            </div>
+                            <div class="mouth"></div>
+                        </div>
+                    </div>
+                    <span class="loading-text">Generating your rule...</span>
+                    <span class="loading-subtext">This might take a moment ✨</span>
                 </div>
 
                 <div id="errorAlert" class="error-alert hidden">

@@ -62,11 +62,18 @@ async function handleAnalyzeClick() {
         isLoading = true;
         showLoading();
         
-        const rule = await generateRule(inputValue);
+        // Start the rule generation and minimum loading time in parallel
+        const [rule] = await Promise.all([
+            generateRule(inputValue),
+            new Promise(resolve => setTimeout(resolve, 3000)) // Always show loading for 3 seconds
+        ]);
+        
         showSuccess(rule);
         
     } catch (error) {
         console.error('Error generating rule:', error);
+        // Even on error, wait for the minimum loading time
+        await new Promise(resolve => setTimeout(resolve, 3000));
         showError(error.message || 'Failed to generate rule. Please try again.');
     } finally {
         isLoading = false;

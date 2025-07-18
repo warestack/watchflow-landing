@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agentic GitHub Guardrails</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <h1 class="title">
+            <span class="title-accent">Agentic</span> GitHub Guardrails
+        </h1>
+        <p class="subtitle">
+            Replace static protection rules with context-aware monitoring. Valuable when all contributors must follow the same operational rules.
+        </p>
+    </header>
+
+    <main class="main">
+        <!-- Floating Decorative Elements -->
+        <div class="floating-decorations">
+            <!-- Stars -->
+            <svg class="decoration star-1" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#FFD700" stroke="#000" stroke-width="1.5"/>
+            </svg>
+            <svg class="decoration star-2" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#4ECDC4" stroke="#000" stroke-width="1.5"/>
+            </svg>
+            <svg class="decoration star-3" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="#FF6B6B" stroke="#000" stroke-width="1.5"/>
+            </svg>
+            
+            
+            <!-- Geometric shapes -->
+            <svg class="decoration triangle-1" viewBox="0 0 24 24">
+                <polygon points="12,2 22,20 2,20" fill="#FF6B6B" stroke="#000" stroke-width="2"/>
+            </svg>
+            <svg class="decoration circle-1" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="8" fill="#4ECDC4" stroke="#000" stroke-width="2"/>
+                <circle cx="12" cy="12" r="3" fill="#FFF"/>
+            </svg>
+            
+            <!-- Lightning bolt -->
+            <svg class="decoration lightning-1" viewBox="0 0 24 24">
+                <path d="M7 2L17 12H11L17 22L7 12H13L7 2Z" fill="#FFD700" stroke="#000" stroke-width="2"/>
+            </svg>
+        </div>
+        
+        <div class="card main-card">
+            <div class="card-content">
+                <h2 class="section-title">Write a rule</h2>
+                
+                <div class="input-section">
+                    <div class="input-wrapper">
+                        <textarea 
+                            id="ruleInput" 
+                            class="rule-input" 
+                            placeholder="PR titles must follow the pattern PROJ-123: Description"
+                            rows="3"
+                        ></textarea>
+                        <button id="analyzeBtn" class="btn btn-primary">Analyze</button>
+                    </div>
+                </div>
+
+                <div id="resultSection" class="result-section hidden">
+                    <div class="success-alert">
+                        <svg class="check-icon" viewBox="0 0 24 24">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#4CAF50"/>
+                        </svg>
+                        <span>Rule successfully generated. Commit this rule in .watchflow/rules.yaml</span>
+                    </div>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <button id="copyBtn" class="copy-btn" title="Copy to clipboard">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" fill="currentColor"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <pre id="codeContent" class="code-content"></pre>
+                    </div>
+                </div>
+
+                <div id="loadingIndicator" class="loading hidden">
+                    <svg class="spinner" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" fill="none" stroke="#4ECDC4" stroke-width="4" stroke-linecap="round" stroke-dasharray="31.416" stroke-dashoffset="31.416">
+                            <animate attributeName="stroke-dasharray" dur="2s" values="0 31.416;15.708 15.708;0 31.416" repeatCount="indefinite"/>
+                            <animate attributeName="stroke-dashoffset" dur="2s" values="0;-15.708;-31.416" repeatCount="indefinite"/>
+                        </circle>
+                    </svg>
+                    <span>Generating rule...</span>
+                </div>
+
+                <div id="errorAlert" class="error-alert hidden">
+                    <svg class="error-icon" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" fill="#F44336"/>
+                    </svg>
+                    <span id="errorMessage">Something went wrong. Please try again.</span>
+                </div>
+            </div>
+        </div>
+
+        <section class="examples-section">
+            <div class="examples-header">
+                <span class="examples-text">Need inspiration?</span>
+            </div>
+            
+            <div id="examplesGrid" class="examples-grid">
+                <div class="example-card">
+                    <div class="example-header">
+                        <h3 class="example-title">Conventional Commits</h3>
+                        <span class="example-tag">Pull Requests</span>
+                    </div>
+                    <p class="example-description">Commit messages must follow conventional commits format (feat/fix/etc).</p>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-header">
+                        <h3 class="example-title">Contributor Approval</h3>
+                        <span class="example-tag">Pull Requests</span>
+                    </div>
+                    <p class="example-description">Pull Requests cannot be approved by the author; approval must come from a contributor listed in contributors.md.</p>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-header">
+                        <h3 class="example-title">Code Owner Approval</h3>
+                        <span class="example-tag">Pull Requests</span>
+                    </div>
+                    <p class="example-description">Pull requests cannot be merged directly into the main branch without prior approval from a designated code owner.</p>
+                </div>
+                
+                <div class="example-card">
+                    <div class="example-header">
+                        <h3 class="example-title">Require Top Reviewer</h3>
+                        <span class="example-tag">Pull Requests</span>
+                    </div>
+                    <p class="example-description">Pull requests must have at least one assigned reviewer from the top 5 most active reviewers.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p class="footer-text">
+            Made by the community 
+            <svg class="heart-icon" viewBox="0 0 24 24">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#FF6B6B" stroke="#000" stroke-width="1"/>
+            </svg>
+        </p>
+    </footer>
+
+    <div id="copyTooltip" class="tooltip hidden">Copied!</div>
+
+    <script src="script.js"></script>
+</body>
+</html>

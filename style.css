@@ -121,9 +121,17 @@ body::before {
 .section-title {
     font-size: 1.8rem;
     font-weight: 800;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.75rem;
     color: var(--accent-primary);
     text-shadow: 2px 2px 0 var(--shadow-color);
+}
+
+.section-description {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
 }
 
 /* Header */
@@ -131,6 +139,37 @@ body::before {
     padding: 4rem 1rem 3rem;
     text-align: center;
     position: relative;
+}
+
+/* GitHub Button */
+.github-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background: var(--text-light);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: 3px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 4px 4px 0 var(--shadow-color);
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.github-btn:hover {
+    background: var(--bg-card);
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--shadow-color);
+}
+
+.github-btn svg {
+    flex-shrink: 0;
 }
 
 /* Header Stars */
@@ -191,7 +230,7 @@ body::before {
 .main-card {
     max-width: 800px;
     margin: 0 auto 3rem;
-    padding: 2.5rem;
+    padding: 1.5rem 2.5rem 2.5rem;
 }
 
 .card-content {
@@ -307,15 +346,44 @@ body::before {
 }
 
 .success-alert {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
     background: #E8F5E8;
     border: 3px solid var(--success-color);
     border-radius: 12px;
-    padding: 1rem;
+    padding: 1.5rem;
     margin-bottom: 1.5rem;
     box-shadow: 4px 4px 0 var(--shadow-color);
+}
+
+.success-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.success-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--success-color);
+}
+
+.success-instructions {
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.success-instructions p {
+    margin: 0;
+}
+
+.file-path {
+    background: var(--bg-code);
+    color: var(--text-light);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9rem;
+    border: 1px solid var(--border-color);
 }
 
 .check-icon {
@@ -505,6 +573,18 @@ body::before {
     height: 20px;
 }
 
+.warestack-link {
+    color: var(--accent-primary);
+    text-decoration: none;
+    font-weight: 700;
+    transition: color 0.2s ease;
+}
+
+.warestack-link:hover {
+    color: var(--text-headline);
+    text-decoration: underline;
+}
+
 /* Tooltip */
 .tooltip {
     position: fixed;
@@ -554,7 +634,7 @@ body::before {
     }
     
     .main-card {
-        padding: 1.5rem;
+        padding: 1rem 1.5rem 1.5rem;
         margin: 0 0.5rem 2rem;
     }
     
@@ -567,6 +647,13 @@ body::before {
         align-self: flex-start;
     }
     
+    /* GitHub button responsive */
+    .github-btn {
+        top: 1rem;
+        right: 1rem;
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
+    }
     
     /* Reduce decorations on mobile */
     .decoration {
@@ -587,7 +674,7 @@ body::before {
     }
     
     .main-card {
-        padding: 1.25rem;
+        padding: 1rem 1.25rem 1.25rem;
     }
     
     .btn {

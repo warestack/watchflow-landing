@@ -192,9 +192,10 @@ function createStar(container, position, color, index) {
         damping: 0.95
     };
     
-    // Add random animation
-    const floatDuration = 5 + Math.random() * 4; // 5-9 seconds
-    const rotateDuration = 8 + Math.random() * 12; // 8-20 seconds
+    // Add random animation (reduced on mobile for performance)
+    const isMobile = window.innerWidth <= 768;
+    const floatDuration = isMobile ? (8 + Math.random() * 4) : (5 + Math.random() * 4); // Slower on mobile
+    const rotateDuration = isMobile ? (15 + Math.random() * 10) : (8 + Math.random() * 12); // Slower on mobile
     const rotateDirection = Math.random() > 0.5 ? 1 : -1; // Random direction
     
     // Create unique rotation keyframes for this star
@@ -229,7 +230,10 @@ let animationId = null;
 
 // Initialize mouse interaction
 function initMouseInteraction() {
-    document.addEventListener('mousemove', handleMouseMove);
+    // Only add mouse interactions on non-touch devices to improve performance
+    if (!('ontouchstart' in window)) {
+        document.addEventListener('mousemove', handleMouseMove);
+    }
     startPhysicsLoop();
 }
 

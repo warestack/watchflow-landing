@@ -220,15 +220,15 @@ function fallbackCopyToClipboard(text) {
     document.body.removeChild(textArea);
 }
 
-// Show copy tooltip
+// Show copy feedback
 function showCopyTooltip() {
-    const rect = copyBtn.getBoundingClientRect();
-    copyTooltip.style.left = rect.left + rect.width / 2 + 'px';
-    copyTooltip.style.top = rect.top + 'px';
-    copyTooltip.classList.remove('hidden');
+    const originalText = copyBtn.textContent;
+    copyBtn.textContent = 'Copied!';
+    copyBtn.style.background = '#4CAF50';
     
     setTimeout(() => {
-        copyTooltip.classList.add('hidden');
+        copyBtn.textContent = originalText;
+        copyBtn.style.background = '';
     }, 1500);
 }
 

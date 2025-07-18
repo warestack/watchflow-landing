@@ -469,32 +469,90 @@ body::before {
 
 .code-header {
     display: flex;
-    justify-content: flex-end;
-    padding: 0.5rem;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 0.75rem 1rem;
     background: #1A202C;
     border-bottom: 2px solid var(--border-color);
 }
 
-.copy-btn {
-    background: none;
-    border: none;
-    color: var(--text-light);
-    cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 6px;
-    transition: background 0.2s ease;
+.window-controls {
     display: flex;
+    gap: 0.5rem;
+}
+
+.window-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.window-dot.red {
+    background: #FF5F57;
+}
+
+.window-dot.yellow {
+    background: #FFBD2E;
+}
+
+.window-dot.green {
+    background: #28CA42;
+}
+
+.code-actions {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: #1A202C;
+    border-top: 2px solid var(--border-color);
+    justify-content: center;
+    align-items: center;
+}
+
+.code-action-btn {
+    padding: 0.875rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    text-decoration: none;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    min-width: 140px;
+    height: 44px;
+    line-height: 1;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
+}
+
+.copy-btn {
+    background: var(--accent-secondary);
+    color: var(--text-primary);
 }
 
 .copy-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: #E6C200;
+    transform: translateY(-1px);
 }
 
-.copy-btn svg {
-    width: 18px;
-    height: 18px;
+.install-btn {
+    background: var(--accent-primary);
+    color: var(--text-primary);
+}
+
+.install-btn:hover {
+    background: #45B7B8;
+    transform: translateY(-1px);
 }
 
 .code-content {
@@ -877,6 +935,20 @@ body::before {
         transform: translate(2px, 2px);
         box-shadow: 2px 2px 0 var(--shadow-color);
     }
+    
+    .code-action-btn:hover {
+        transform: none;
+    }
+    
+    .copy-btn:active {
+        background: #E6C200;
+        transform: translateY(1px);
+    }
+    
+    .install-btn:active {
+        background: #45B7B8;
+        transform: translateY(1px);
+    }
 }
 
 /* Responsive Design */
@@ -966,6 +1038,7 @@ body::before {
         align-self: flex-start;
         font-size: 0.8rem;
         padding: 0.25rem 0.7rem;
+        flex-shrink: 0;
     }
     
     .example-description {
@@ -1001,6 +1074,18 @@ body::before {
     .code-content {
         font-size: 0.85rem;
         padding: 1.25rem;
+    }
+    
+    .code-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+        padding: 1.25rem;
+    }
+    
+    .code-action-btn {
+        width: 100%;
+        padding: 0.875rem;
+        font-size: 0.9rem;
     }
     
     /* Robot responsive on tablet */
@@ -1173,6 +1258,16 @@ body::before {
         font-size: 0.8rem;
         padding: 1rem;
         line-height: 1.4;
+    }
+    
+    .code-actions {
+        padding: 1rem;
+        gap: 0.75rem;
+    }
+    
+    .code-action-btn {
+        padding: 0.75rem;
+        font-size: 0.85rem;
     }
     
     /* Loading mobile */

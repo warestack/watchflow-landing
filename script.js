@@ -7,7 +7,6 @@ const errorAlert = document.getElementById('errorAlert');
 const errorMessage = document.getElementById('errorMessage');
 const codeContent = document.getElementById('codeContent');
 const copyBtn = document.getElementById('copyBtn');
-const copyTooltip = document.getElementById('copyTooltip');
 // showExamplesBtn removed - examples are now always visible
 const examplesGrid = document.getElementById('examplesGrid');
 
@@ -22,7 +21,11 @@ const API_ENDPOINT = 'https://api.example.com/generate-rule';
 document.addEventListener('DOMContentLoaded', function() {
     initializeEventListeners();
     hideAllStates();
-    generateRandomStars();
+    
+    // Only generate stars on non-mobile devices
+    if (window.innerWidth > 768) {
+        generateRandomStars();
+    }
 });
 
 // Event Listeners
@@ -212,7 +215,11 @@ function fallbackCopyToClipboard(text) {
     textArea.select();
     
     try {
-        document.execCommand('copy');
+        // Note: document.execCommand is deprecated but kept for compatibility
+        const success = document.execCommand('copy');
+        if (!success) {
+            throw new Error('Copy command failed');
+        }
     } catch (err) {
         console.error('Fallback copy failed:', err);
     }
@@ -328,7 +335,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const exampleCards = document.querySelectorAll('.example-card');
     exampleCards.forEach(card => {
         card.addEventListener('click', function() {
-            const title = this.querySelector('.example-title').textContent;
             const description = this.querySelector('.example-description').textContent;
             
             // Populate the input with the example description

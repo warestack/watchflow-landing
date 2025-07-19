@@ -576,6 +576,20 @@ body::after {
     transform: translateY(-1px);
 }
 
+.download-btn {
+    background: var(--accent-secondary);
+    color: var(--text-primary);
+}
+
+.download-btn:hover {
+    background: #E6C200;
+    transform: translateY(-1px);
+}
+
+.code-container {
+    position: relative;
+}
+
 .code-content {
     padding: 1.5rem;
     color: var(--text-light);
@@ -584,6 +598,32 @@ body::after {
     line-height: 1.5;
     white-space: pre-wrap;
     overflow-x: auto;
+}
+
+.copy-icon-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: var(--text-primary);
+    box-shadow: 2px 2px 0 var(--shadow-color);
+    z-index: 10;
+}
+
+.copy-icon-btn:hover {
+    background: var(--accent-secondary);
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 var(--shadow-color);
+}
+
+.copy-icon-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: none;
 }
 
 /* Loading Indicator */
@@ -1142,7 +1182,7 @@ body::after {
 
 /* Mobile devices */
 @media (max-width: 480px) {
-    /* Cartoony mobile bubbles */
+    /* Cartoony mobile bubbles - star colors */
     body::before {
         display: block;
         content: '';
@@ -1155,7 +1195,11 @@ body::after {
             radial-gradient(circle 40px at 20% 30%, rgba(78, 205, 196, 0.4) 0%, rgba(78, 205, 196, 0.2) 50%, rgba(0, 0, 0, 0.08) 55%, transparent 60%),
             radial-gradient(circle 50px at 80% 20%, rgba(255, 215, 0, 0.35) 0%, rgba(255, 215, 0, 0.18) 50%, rgba(0, 0, 0, 0.08) 55%, transparent 60%),
             radial-gradient(circle 30px at 60% 70%, rgba(255, 107, 107, 0.4) 0%, rgba(255, 107, 107, 0.2) 50%, rgba(0, 0, 0, 0.08) 55%, transparent 60%),
-            radial-gradient(circle 35px at 25% 80%, rgba(149, 225, 211, 0.35) 0%, rgba(149, 225, 211, 0.18) 50%, rgba(0, 0, 0, 0.08) 55%, transparent 60%);
+            radial-gradient(circle 35px at 25% 80%, rgba(149, 225, 211, 0.35) 0%, rgba(149, 225, 211, 0.18) 50%, rgba(0, 0, 0, 0.08) 55%, transparent 60%),
+            radial-gradient(circle 25px at 10% 15%, rgba(255, 215, 0, 0.3) 0%, rgba(255, 215, 0, 0.15) 50%, rgba(0, 0, 0, 0.06) 55%, transparent 60%),
+            radial-gradient(circle 45px at 90% 40%, rgba(78, 205, 196, 0.35) 0%, rgba(78, 205, 196, 0.18) 50%, rgba(0, 0, 0, 0.08) 55%, transparent 60%),
+            radial-gradient(circle 32px at 45% 10%, rgba(255, 107, 107, 0.3) 0%, rgba(255, 107, 107, 0.15) 50%, rgba(0, 0, 0, 0.06) 55%, transparent 60%),
+            radial-gradient(circle 38px at 75% 85%, rgba(149, 225, 211, 0.32) 0%, rgba(149, 225, 211, 0.16) 50%, rgba(0, 0, 0, 0.07) 55%, transparent 60%);
         animation: bubblesFloat 25s linear infinite;
         z-index: -1;
         pointer-events: none;
@@ -1170,8 +1214,12 @@ body::after {
         width: 100%;
         height: 120%;
         background: 
-            radial-gradient(circle 45px at 70% 50%, rgba(255, 182, 193, 0.3) 0%, rgba(255, 182, 193, 0.15) 50%, rgba(0, 0, 0, 0.06) 55%, transparent 60%),
-            radial-gradient(circle 30px at 15% 60%, rgba(138, 43, 226, 0.25) 0%, rgba(138, 43, 226, 0.12) 50%, rgba(0, 0, 0, 0.06) 55%, transparent 60%);
+            radial-gradient(circle 45px at 70% 50%, rgba(255, 107, 107, 0.3) 0%, rgba(255, 107, 107, 0.15) 50%, rgba(0, 0, 0, 0.06) 55%, transparent 60%),
+            radial-gradient(circle 30px at 15% 60%, rgba(149, 225, 211, 0.25) 0%, rgba(149, 225, 211, 0.12) 50%, rgba(0, 0, 0, 0.06) 55%, transparent 60%),
+            radial-gradient(circle 42px at 95% 75%, rgba(255, 215, 0, 0.28) 0%, rgba(255, 215, 0, 0.14) 50%, rgba(0, 0, 0, 0.06) 55%, transparent 60%),
+            radial-gradient(circle 28px at 35% 35%, rgba(78, 205, 196, 0.25) 0%, rgba(78, 205, 196, 0.12) 50%, rgba(0, 0, 0, 0.06) 55%, transparent 60%),
+            radial-gradient(circle 36px at 55% 90%, rgba(255, 215, 0, 0.27) 0%, rgba(255, 215, 0, 0.13) 50%, rgba(0, 0, 0, 0.06) 55%, transparent 60%),
+            radial-gradient(circle 33px at 5% 45%, rgba(78, 205, 196, 0.26) 0%, rgba(78, 205, 196, 0.13) 50%, rgba(0, 0, 0, 0.06) 55%, transparent 60%);
         animation: bubblesFloat 30s linear infinite;
         animation-delay: -15s;
         z-index: -2;

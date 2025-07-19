@@ -6,7 +6,8 @@ const loadingIndicator = document.getElementById('loadingIndicator');
 const errorAlert = document.getElementById('errorAlert');
 const errorMessage = document.getElementById('errorMessage');
 const codeContent = document.getElementById('codeContent');
-const copyBtn = document.getElementById('copyBtn');
+const downloadBtn = document.getElementById('downloadBtn');
+const copyIconBtn = document.getElementById('copyIconBtn');
 // showExamplesBtn removed - examples are now always visible
 const examplesGrid = document.getElementById('examplesGrid');
 
@@ -41,8 +42,11 @@ function initializeEventListeners() {
         }
     });
     
-    // Copy button click
-    copyBtn.addEventListener('click', handleCopyClick);
+    // Download button click
+    downloadBtn.addEventListener('click', handleDownloadClick);
+    
+    // Copy icon button click
+    copyIconBtn.addEventListener('click', handleCopyClick);
     
     // Examples are now always visible - no button needed
     
@@ -181,17 +185,40 @@ rules:
     }
 }
 
-// Handle copy button click
+// Handle download button click
+function handleDownloadClick() {
+    if (!currentRule) return;
+    
+    // Create blob with YAML content
+    const blob = new Blob([currentRule], { type: 'text/yaml' });
+    const url = URL.createObjectURL(blob);
+    
+    // Create temporary download link
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'rules.yaml';
+    document.body.appendChild(a);
+    a.click();
+    
+    // Cleanup
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    // Show feedback
+    showDownloadFeedback();
+}
+
+// Handle copy icon button click
 async function handleCopyClick() {
     if (!currentRule) return;
     
     try {
         await navigator.clipboard.writeText(currentRule);
-        showCopyTooltip();
+        showCopyFeedback();
     } catch (error) {
         // Fallback for older browsers
         fallbackCopyToClipboard(currentRule);
-        showCopyTooltip();
+        showCopyFeedback();
     }
 }
 
@@ -227,15 +254,26 @@ function fallbackCopyToClipboard(text) {
     document.body.removeChild(textArea);
 }
 
-// Show copy feedback
-function showCopyTooltip() {
-    const originalText = copyBtn.textContent;
-    copyBtn.textContent = 'Copied!';
-    copyBtn.style.background = '#4CAF50';
+// Show download feedback
+function showDownloadFeedback() {
+    const originalText = downloadBtn.textContent;
+    downloadBtn.textContent = 'Downloaded!';
+    downloadBtn.style.background = '#4CAF50';
     
     setTimeout(() => {
-        copyBtn.textContent = originalText;
-        copyBtn.style.background = '';
+        downloadBtn.textContent = originalText;
+        downloadBtn.style.background = '';
+    }, 1500);
+}
+
+// Show copy feedback
+function showCopyFeedback() {
+    copyIconBtn.style.background = '#4CAF50';
+    copyIconBtn.style.color = '#FFFFFF';
+    
+    setTimeout(() => {
+        copyIconBtn.style.background = '';
+        copyIconBtn.style.color = '';
     }, 1500);
 }
 

@@ -16,7 +16,7 @@ let isLoading = false;
 let currentRule = '';
 
 // API Configuration
-const API_ENDPOINT = 'https://api.example.com/generate-rule';
+const API_ENDPOINT = 'https://api.watchflow.dev/api/v1/rules/evaluate';
 
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
@@ -89,101 +89,52 @@ async function handleAnalyzeClick() {
 
 // Generate rule via API
 async function generateRule(description) {
-    try {
-        const response = await fetch(API_ENDPOINT, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ description }),
-        });
-        
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+    const response = await fetch(API_ENDPOINT, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+        },
+        body: JSON.stringify({ 
+            rule_text: description,
+            event_data: null
+        }),
+    });
+    
+    if (!response.ok) {
+        // Handle validation errors or other API errors
+        if (response.status === 422) {
+            const errorData = await response.json();
+            throw new Error(`Validation error: ${errorData.detail || 'Invalid rule description format'}`);
         }
-        
-        const data = await response.json();
-        
-        if (!data.rule) {
-            throw new Error('Invalid response format');
-        }
-        
-        return data.rule;
-        
-    } catch (error) {
-        // For demo purposes, return a mock rule if API fails
-        if (error.message.includes('fetch')) {
-            return generateMockRule(description);
-        }
-        throw error;
+        throw new Error(`API error: ${response.status} ${response.statusText}`);
     }
+    
+    const data = await response.json();
+    
+    if (!data) {
+        throw new Error('Empty response from API');
+    }
+    
+    // Check if the rule is supported
+    if (!data.supported) {
+        const reason = data.feedback || 'This type of rule is not supported by Watchflow';
+        throw new Error(reason);
+    }
+    
+    // Extract the YAML snippet from the response
+    if (data.snippet) {
+        // Remove the markdown code block wrapper if present
+        let yaml = data.snippet;
+        if (yaml.startsWith('```yaml\n')) {
+            yaml = yaml.replace(/^```yaml\n/, '').replace(/\n```$/, '');
+        }
+        return yaml;
+    }
+    
+    throw new Error('No rule snippet found in API response');
 }
 
-// Generate mock rule for demonstration
-function generateMockRule(description) {
-    const mockRules = {
-        'pr title': `name: PR Title Format
-description: ${description}
-on:
-  pull_request:
-    types: [opened, edited, synchronize]
-rules:
-  - name: Check PR title format
-    condition: |
-      pull_request.title matches /^[A-Z]+-\\d+: .+$/
-    message: "PR title must follow the pattern PROJ-123: Description"
-    severity: error`,
-        
-        'commit': `name: Commit Message Format
-description: ${description}
-on:
-  push:
-    branches: [main, develop]
-rules:
-  - name: Check commit message format
-    condition: |
-      commit.message matches /^(feat|fix|docs|style|refactor|test|chore): .+$/
-    message: "Commit messages must follow conventional commits format"
-    severity: error`,
-        
-        'approval': `name: Approval Requirements
-description: ${description}
-on:
-  pull_request:
-    types: [opened, review_requested]
-rules:
-  - name: Check approval requirements
-    condition: |
-      pull_request.author not in pull_request.reviewers
-    message: "Pull requests cannot be approved by the author"
-    severity: error`,
-        
-        'default': `name: Custom Rule
-description: ${description}
-on:
-  pull_request:
-    types: [opened, edited, synchronize]
-rules:
-  - name: Custom validation
-    condition: |
-      # Add your custom validation logic here
-      true
-    message: "Custom validation message"
-    severity: warning`
-    };
-    
-    const lowerDescription = description.toLowerCase();
-    
-    if (lowerDescription.includes('title') || lowerDescription.includes('pr')) {
-        return mockRules['pr title'];
-    } else if (lowerDescription.includes('commit')) {
-        return mockRules['commit'];
-    } else if (lowerDescription.includes('approval') || lowerDescription.includes('review')) {
-        return mockRules['approval'];
-    } else {
-        return mockRules['default'];
-    }
-}
 
 // Handle download button click
 function handleDownloadClick() {

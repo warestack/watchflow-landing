@@ -25,7 +25,7 @@ jobs:
       CERT_ISSUER_NAME: "war-cert-issuer"
 
       # Application configuration
-      PORT: "5500"
+      PORT: "80"
       HELM_PATH: "helm-chart"
       JOB_STATUS: "succeeded"
 

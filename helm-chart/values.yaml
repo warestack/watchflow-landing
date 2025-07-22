@@ -1,0 +1,102 @@
+# Default values for the helm chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# Application deployment configuration
+replicaCount: 1
+
+# Docker image configuration
+image:
+  repository: watchflow
+    # get it from https://eu-west-2.console.aws.amazon.com/ecr/repositories?region=eu-west-2 or run:
+  # aws ecr describe-repositories --profile=warestack --output=json | jq -r '.repositories[].repositoryUri'
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+# Image pull secrets for private registries
+imagePullSecrets: []
+
+# Name overrides for the chart
+nameOverride: ""
+fullnameOverride: ""
+
+# Service account configuration
+serviceAccount:
+  create: false
+  annotations: {}
+  name: ""
+
+# Pod annotations and security context
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+# Kubernetes service configuration
+service:
+  type: NodePort
+  ports:
+    - port: 5500
+      targetPort: 5500
+
+# Health check configuration for liveness and readiness probes
+healthChecks:
+  path: /
+  enabled: true
+
+# Certificate configuration for TLS termination
+cert:
+  enabled: true
+  tls:
+    secretName: watchflow-tls
+  issuerRef:
+    name: cert-issuer
+    kind: ClusterIssuer
+  commonName: watchflow.dev
+  dnsNames:
+    hosts:
+      - sample.com
+
+# Ingress configuration for external access
+ingress:
+  enabled: true
+  className: "nginx"
+  annotations:
+      nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  hosts:
+    - host: watchflow.dev
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: watchflow-tls
+      hosts:
+        - watchflow.dev
+
+# Resource limits and requests for the application
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+# Horizontal Pod Autoscaler configuration
+autoscaling:
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 2
+  targetCPUUtilizationPercentage: 80
+
+# Node placement configuration
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# Application secrets
+secrets: []

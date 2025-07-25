@@ -1,0 +1,32 @@
+# Version control
+.git
+.gitignore
+
+# CI/CD and deployment
+.github
+helm-chart
+
+# Docker files
+Dockerfile
+.dockerignore
+
+# Development files
+README.md
+*.md
+
+# IDE and editor files
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+temp/ 

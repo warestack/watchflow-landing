@@ -172,7 +172,7 @@ body::after {
 .header-cta {
     text-align: center;
     margin-top: 2rem;
-    animation: slideUp 1s ease-out 0.8s both;
+    animation: bounceDown 1.2s ease-out 1s both;
 }
 
 .install-btn {
@@ -1687,6 +1687,25 @@ body::after {
     0% {
         transform: translateY(30px);
         opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes bounceDown {
+    0% {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    70% {
+        transform: translateY(-8px);
+        opacity: 1;
+    }
+    85% {
+        transform: translateY(3px);
+        opacity: 1;
     }
     100% {
         transform: translateY(0);

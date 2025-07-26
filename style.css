@@ -168,7 +168,74 @@ body::after {
     position: relative;
 }
 
-/* GitHub Button */
+/* Header CTA */
+.header-cta {
+    text-align: center;
+    margin-top: 2rem;
+    animation: slideUp 1s ease-out 0.8s both;
+}
+
+.install-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 2rem;
+    background: var(--accent-secondary);
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    border: 3px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 4px 4px 0 var(--shadow-color);
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    position: relative;
+    overflow: hidden;
+}
+
+.install-btn:hover {
+    background: #FFEB3B;
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 var(--shadow-color);
+}
+
+.install-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20px 15px, var(--accent-primary) 2px, transparent 2px),
+        radial-gradient(circle at 60px 10px, var(--accent-tertiary) 1.5px, transparent 1.5px),
+        radial-gradient(circle at 100px 35px, var(--accent-quaternary) 2px, transparent 2px),
+        radial-gradient(circle at 140px 20px, var(--accent-primary) 1.5px, transparent 1.5px),
+        radial-gradient(circle at 180px 30px, var(--accent-tertiary) 2px, transparent 2px),
+        radial-gradient(circle at 40px 40px, var(--accent-quaternary) 1.5px, transparent 1.5px),
+        radial-gradient(circle at 120px 45px, var(--accent-primary) 2px, transparent 2px),
+        radial-gradient(circle at 80px 25px, var(--accent-tertiary) 1.5px, transparent 1.5px);
+    background-size: 200px 60px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    animation: sparkleFlow 4s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+    border-radius: 9px;
+}
+
+.install-btn:hover::before {
+    opacity: 0.6;
+}
+
+.install-btn img, .install-btn span {
+    position: relative;
+    z-index: 1;
+}
+
+/* GitHub Button (Top Right) */
 .github-btn {
     position: fixed;
     top: 0.5rem;
@@ -362,6 +429,7 @@ body::after {
     opacity: 1;
 }
 
+
 .btn-primary:disabled {
     background: #A0A0A0;
     color: #666666;
@@ -379,6 +447,7 @@ body::after {
 .btn-primary:disabled::before {
     display: none;
 }
+
 
 .btn-secondary {
     background: var(--accent-secondary);
@@ -585,12 +654,12 @@ body::after {
 }
 
 .install-btn {
-    background: var(--accent-primary);
+    background: var(--accent-secondary);
     color: var(--text-primary);
 }
 
 .install-btn:hover {
-    background: #45B7B8;
+    background: #FFEB3B;
     transform: translateY(-1px);
 }
 
@@ -1120,12 +1189,22 @@ body::after {
         line-height: 1.4;
     }
     
-    /* GitHub button responsive */
+    /* Header responsive */
     .github-btn {
         top: 1rem;
         right: 1rem;
         padding: 0.6rem 1rem;
         font-size: 0.85rem;
+        gap: 0.4rem;
+    }
+    
+    .header-cta {
+        margin-top: 1.5rem;
+    }
+    
+    .install-btn {
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
         gap: 0.4rem;
     }
     
@@ -1297,7 +1376,7 @@ body::after {
         letter-spacing: 0.02em;
     }
     
-    /* GitHub button mobile - brutalist banner */
+    /* GitHub button mobile - banner layout */
     .github-btn {
         position: fixed;
         top: 0;
@@ -1313,11 +1392,9 @@ body::after {
         box-shadow: 0 3px 0 var(--shadow-color);
         z-index: 20;
         justify-content: center;
-        text-align: center;
-        background: var(--accent-quaternary);
-        color: var(--text-primary);
         text-transform: uppercase;
         letter-spacing: 0.03em;
+        background: var(--accent-quaternary);
     }
     
     .github-btn:hover {
@@ -1335,6 +1412,28 @@ body::after {
     /* Add padding to body to account for fixed banner */
     body {
         padding-top: 3.2rem;
+    }
+    
+    /* Install button mobile */
+    .header-cta {
+        margin-top: 1rem;
+    }
+    
+    .install-btn {
+        padding: 0.875rem 1.25rem;
+        font-size: 0.95rem;
+        border-radius: 10px;
+        text-transform: none;
+        letter-spacing: 0.02em;
+    }
+    
+    /* Disable sparkle animation on mobile */
+    .install-btn::before {
+        display: none;
+    }
+    
+    .install-btn:hover::before {
+        display: none;
     }
     
     /* Examples mobile */
@@ -1542,6 +1641,11 @@ body::after {
         font-size: 0.75rem;
     }
     
+    .install-btn {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
+    
     .example-card {
         padding: 1rem;
     }
@@ -1641,6 +1745,15 @@ body::after {
     100% { 
         transform: rotate(360deg);
         background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+    }
+}
+
+@keyframes sparkleFlow {
+    0% { 
+        background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+    }
+    100% { 
+        background-position: 200px 0px, 200px 0px, 200px 0px, 200px 0px, 200px 0px, 200px 0px, 200px 0px, 200px 0px;
     }
 }
 

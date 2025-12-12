@@ -115,23 +115,28 @@ async function generateRule(description) {
     if (!data) {
         throw new Error('Empty response from API');
     }
-    
-    // Check if the rule is supported
-    if (!data.supported) {
-        const reason = data.feedback || 'This type of rule is not supported by Watchflow';
-        throw new Error(reason);
-    }
-    
-    // Extract the YAML snippet from the response
+
+    // Extract the YAML snippet from the response first so we can whitelist diff rules
+    let yaml = null;
     if (data.snippet) {
-        // Remove the markdown code block wrapper if present
-        let yaml = data.snippet;
+        yaml = data.snippet;
         if (yaml.startsWith('```yaml\n')) {
             yaml = yaml.replace(/^```yaml\n/, '').replace(/\n```$/, '');
         }
+    }
+
+    // Allow diff-aware rules (file_patterns/require_patterns/forbidden_patterns) even if the API flags them unsupported
+    const isDiffRule = yaml ? /file_patterns|require_patterns|forbidden_patterns/.test(yaml) : false;
+
+    if (!data.supported && !isDiffRule) {
+        const reason = data.feedback || 'This type of rule is not supported by Watchflow';
+        throw new Error(reason);
+    }
+
+    if (yaml) {
         return yaml;
     }
-    
+
     throw new Error('No rule snippet found in API response');
 }
 

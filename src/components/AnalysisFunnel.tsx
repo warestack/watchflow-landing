@@ -167,7 +167,7 @@ export function AnalysisFunnel({ analysisData }: AnalysisFunnelProps) {
               Step 1 → Analyze
             </div>
             <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
-              Deep Repository Analysis
+              Deep repository analysis
             </h2>
             <p className="text-muted-foreground max-w-2xl">
               Watchflow reads your repository structure, history, and patterns to understand 

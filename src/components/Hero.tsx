@@ -181,7 +181,7 @@ export function Hero({
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-border bg-muted/50 text-xs font-mono text-muted-foreground">
             <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
-            Open Source GitHub App
+            Open-source GitHub App
           </div>
 
           {/* Headline */}

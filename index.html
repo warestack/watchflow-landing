@@ -1,348 +1,41 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover">
-    <title>Watchflow - Agentic GitHub Guardrails by Warestack</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Watchflow - Agentic GitHub Governance</title>
+    <meta name="description" content="Generate context-aware review policies from repository signals—CODEOWNERS, PR history, and contribution patterns. No static rules or workflow rewrites required." />
+    <meta name="author" content="Warestack" />
+    <meta name="theme-color" content="#fbfbfb" />
+    <meta name="keywords" content="GitHub, governance, PR review, code review, contribution standards, repository management, context-aware policies" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://watchflow.dev" />
+    <meta property="og:title" content="Watchflow - Agentic GitHub Governance" />
+    <meta property="og:description" content="Generate context-aware review policies from repository signals—CODEOWNERS, PR history, and contribution patterns. No static rules or workflow rewrites required." />
+    <meta property="og:image" content="https://watchflow.dev/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Watchflow - Agentic GitHub Governance with custom review policies and contribution standards" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://watchflow.dev" />
+    <meta name="twitter:title" content="Watchflow - Agentic GitHub Governance" />
+    <meta name="twitter:description" content="Generate context-aware review policies from repository signals—CODEOWNERS, PR history, and contribution patterns." />
+    <meta name="twitter:image" content="https://watchflow.dev/og-image.png" />
+    <meta name="twitter:site" content="@warestack" />
     
-    <!-- OpenGraph Meta Tags -->
-    <meta property="og:title" content="Watchflow - Agentic GitHub Guardrails">
-    <meta property="og:description" content="Replace static protection rules with agentic guardrails. Watchflow ensures consistent quality standards with smarter, context-aware protection for every repo.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://watchflow.dev">
-    <meta property="og:site_name" content="Watchflow">
-    <meta property="og:locale" content="en_US">
-    <meta property="og:image" content="https://watchflow.dev/og-image.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Watchflow - Agentic GitHub Guardrails">
+    <link rel="canonical" href="https://watchflow.dev" />
     
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Watchflow - Agentic GitHub Guardrails">
-    <meta name="twitter:description" content="Replace static protection rules with agentic guardrails. Watchflow ensures consistent quality standards with smarter, context-aware protection for every repo.">
-    <meta name="twitter:site" content="@warestack">
-    <meta name="twitter:creator" content="@warestack">
-    <meta name="twitter:image" content="https://watchflow.dev/og-image.png">
-    <meta name="twitter:image:alt" content="Watchflow - Agentic GitHub Guardrails">
-    
-    <!-- Favicon and Icons -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="icon" type="image/png" href="/favicon.png">
-    <link rel="apple-touch-icon" href="/favicon.png">
-    
-    <!-- Additional Meta Tags -->
-    <meta name="description" content="Replace static protection rules with agentic guardrails. Watchflow ensures consistent quality standards with smarter, context-aware protection for every repo.">
-    <meta name="keywords" content="GitHub, guardrails, agentic, protection rules, code quality, pull requests, automation, Warestack">
-    <meta name="author" content="Warestack">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-    <script type="text/javascript">
-        (function(c,l,a,r,i,t,y){
-            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-        })(window, document, "clarity", "script", "sjxo41z4if");
-    </script>
-</head>
-<body>
-    <header class="header">
-        <!-- Header stars (generated by script) -->
-        <div class="header-stars"></div>
-        
-        <!-- GitHub Button (Top Right) -->
-        <a href="https://github.com/warestack/watchflow" class="github-btn" target="_blank" rel="noopener noreferrer">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-            </svg>
-            View in GitHub
-        </a>
-        
-        <h1 class="title">
-            <span class="title-word-1">Agentic</span> <span class="title-word-2">GitHub</span> <span class="title-word-3">Guardrails</span>
-        </h1>
-        <p class="subtitle">
-            Replace static protection rules with agentic guardrails. <strong>Watchflow</strong> ensures consistent quality standards with smarter, context-aware protection for every repo.
-        </p>
-        
-        <!-- Install Button -->
-        <div class="header-cta">
-            <a href="https://github.com/apps/watchflow" class="install-btn" target="_blank" rel="noopener noreferrer">
-                <img src="favicon.svg" width="20" height="20" alt="Watchflow">
-                Install Watchflow
-            </a>
-        </div>
-    </header>
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
 
-    <main class="main">
-        <!-- Floating Decorative Elements (generated by script) -->
-        <div class="floating-decorations"></div>
-
-        <!-- Repository Analysis Section -->
-        <div class="card main-card">
-            <div class="card-content">
-                <h2 class="section-title">Analyze your repository</h2>
-                <p class="section-description">
-                    Paste your GitHub repository URL and get personalized Watchflow rule recommendations based on your repository's patterns, contributing guidelines, and history.
-                </p>
-
-                <div class="input-section">
-                    <div class="input-wrapper">
-                        <input
-                            type="url"
-                            id="repoUrlInput"
-                            class="repo-input"
-                            placeholder="https://github.com/owner/repository"
-                            pattern="https://github\.com/[^/]+/[^/]+"
-                        >
-                        <button id="analyzeRepoBtn" class="btn btn-primary">Analyze Repository</button>
-                    </div>
-                </div>
-
-                <div id="repoAnalysisResult" class="result-section hidden">
-                    <div class="success-alert">
-                        <div class="success-header">
-                            <svg class="check-icon" viewBox="0 0 24 24">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#4CAF50"/>
-                            </svg>
-                            <span class="success-title">Analysis complete!</span>
-                        </div>
-                        <div class="success-instructions">
-                            <p>We've analyzed your repository and generated personalized rule recommendations.</p>
-                        </div>
-                    </div>
-
-                    <div class="recommendations-section">
-                        <h3 class="recommendations-title">Recommended Rules</h3>
-                        <div id="recommendationsList" class="recommendations-list">
-                            <!-- Recommendations will be populated here -->
-                        </div>
-
-                        <div class="pr-plan-section">
-                            <h4 class="pr-plan-title">Pull Request Plan</h4>
-                            <div id="prPlanDetails" class="pr-plan-details">
-                                <!-- PR plan details will be populated here -->
-                            </div>
-
-                            <div class="pr-actions">
-                                <button id="proceedWithPrBtn" class="btn btn-primary proceed-btn">Proceed with PR</button>
-                                <button id="downloadRulesBtn" class="btn btn-secondary download-btn">Download rules.yaml</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="code-block">
-                        <div class="code-header">
-                            <div class="window-controls">
-                                <div class="window-dot red"></div>
-                                <div class="window-dot yellow"></div>
-                                <div class="window-dot green"></div>
-                            </div>
-                            <span class="code-title">.watchflow/rules.yaml</span>
-                        </div>
-                        <div class="code-container">
-                            <pre id="repoCodeContent" class="code-content"></pre>
-                            <button id="copyRepoCodeBtn" class="copy-icon-btn" title="Copy to clipboard">
-                                <svg viewBox="0 0 24 24" width="16" height="16">
-                                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" fill="currentColor"/>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="repoLoadingIndicator" class="loading hidden">
-                    <div class="loading-animation">
-                        <div class="robot-container">
-                            <div class="robot-head">
-                                <div class="robot-antenna">
-                                    <div class="antenna-ball"></div>
-                                </div>
-                                <div class="robot-eyes">
-                                    <div class="robot-eye robot-eye-left"></div>
-                                    <div class="robot-eye robot-eye-right"></div>
-                                </div>
-                                <div class="robot-mouth"></div>
-                            </div>
-                            <div class="robot-body">
-                                <div class="robot-panel">
-                                    <div class="robot-light robot-light-1"></div>
-                                    <div class="robot-light robot-light-2"></div>
-                                    <div class="robot-light robot-light-3"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <span class="loading-text">Analyzing repository...</span>
-                    <span class="loading-subtext">This may take a few moments</span>
-                </div>
-
-                <div id="repoErrorAlert" class="error-alert hidden">
-                    <div class="error-header">
-                        <svg class="error-icon" viewBox="0 0 24 24">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="#F44336"/>
-                        </svg>
-                        <span class="error-title">Analysis failed</span>
-                    </div>
-                    <div class="error-content">
-                        <p id="repoErrorMessage">Something went wrong during repository analysis. Please try again.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Rule Generation Section -->
-        <div class="card main-card">
-            <div class="card-content">
-                <h2 class="section-title">Create custom rules</h2>
-                <p class="section-description">
-                    Use natural language to describe the rule you want to enforce on your repo, and we will generate the Watchflow config for it.
-                </p>
-                
-                <div class="input-section">
-                    <div class="input-wrapper">
-                        <textarea 
-                            id="ruleInput" 
-                            class="rule-input" 
-                            placeholder="PR titles must follow the pattern PROJ-123: Description"
-                            rows="3"
-                        ></textarea>
-                        <button id="analyzeBtn" class="btn btn-primary">Analyze</button>
-                    </div>
-                </div>
-
-                <div id="resultSection" class="result-section hidden">
-                    <div class="success-alert">
-                        <div class="success-header">
-                            <svg class="check-icon" viewBox="0 0 24 24">
-                                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="#4CAF50"/>
-                            </svg>
-                            <span class="success-title">Rule successfully generated!</span>
-                        </div>
-                        <div class="success-instructions">
-                            <p>Now install Watchflow in your repo, commit this rule to <code class="file-path">.watchflow/rules.yaml</code> and see the magic happen!</p>
-                        </div>
-                    </div>
-                    
-                    <div class="code-block">
-                        <div class="code-header">
-                            <div class="window-controls">
-                                <div class="window-dot red"></div>
-                                <div class="window-dot yellow"></div>
-                                <div class="window-dot green"></div>
-                            </div>
-                        </div>
-                        <div class="code-container">
-                            <pre id="codeContent" class="code-content"></pre>
-                            <button id="copyIconBtn" class="copy-icon-btn" title="Copy to clipboard">
-                                <svg viewBox="0 0 24 24" width="16" height="16">
-                                    <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" fill="currentColor"/>
-                                </svg>
-                            </button>
-                        </div>
-                        <div class="code-actions">
-                            <button id="downloadBtn" class="code-action-btn download-btn">Download rules.yaml</button>
-                            <a href="https://github.com/apps/watchflow" target="_blank" rel="noopener noreferrer" class="code-action-btn install-btn">Install Watchflow</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="loadingIndicator" class="loading hidden">
-                    <div class="loading-animation">
-                        <div class="robot-container">
-                            <div class="robot-head">
-                                <div class="robot-antenna">
-                                    <div class="antenna-ball"></div>
-                                </div>
-                                <div class="robot-eyes">
-                                    <div class="robot-eye robot-eye-left"></div>
-                                    <div class="robot-eye robot-eye-right"></div>
-                                </div>
-                                <div class="robot-mouth"></div>
-                            </div>
-                            <div class="robot-body">
-                                <div class="robot-panel">
-                                    <div class="robot-light robot-light-1"></div>
-                                    <div class="robot-light robot-light-2"></div>
-                                    <div class="robot-light robot-light-3"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <span class="loading-text">Robot is thinking...</span>
-                    <span class="loading-subtext">Analyzing your rule</span>
-                </div>
-
-                <div id="errorAlert" class="error-alert hidden">
-                    <div class="error-header">
-                        <svg class="error-icon" viewBox="0 0 24 24">
-                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="#F44336"/>
-                        </svg>
-                        <span class="error-title">Rule not supported</span>
-                    </div>
-                    <div class="error-content">
-                        <p id="errorMessage">Something went wrong. Please try again.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <section class="examples-section">
-            <div class="examples-header">
-                <span class="examples-text">Need inspiration?</span>
-            </div>
-            
-            <div id="examplesGrid" class="examples-grid">
-                <div class="example-card">
-                    <div class="example-header">
-                        <h3 class="example-title">Conventional Commits</h3>
-                        <span class="example-tag">Pull Requests</span>
-                    </div>
-                    <p class="example-description">Commit messages must follow conventional commits format (feat/fix/etc).</p>
-                </div>
-                
-                <div class="example-card">
-                    <div class="example-header">
-                        <h3 class="example-title">Contributor Approval</h3>
-                        <span class="example-tag">Pull Requests</span>
-                    </div>
-                    <p class="example-description">Pull Requests cannot be approved by the author; approval must come from a contributor listed in contributors.md.</p>
-                </div>
-                
-                <div class="example-card">
-                    <div class="example-header">
-                        <h3 class="example-title">Code Owner Approval</h3>
-                        <span class="example-tag">Pull Requests</span>
-                    </div>
-                    <p class="example-description">Pull requests cannot be merged directly into the main branch without prior approval from a designated code owner.</p>
-                </div>
-                
-                <div class="example-card">
-                    <div class="example-header">
-                        <h3 class="example-title">Require Top Reviewer</h3>
-                        <span class="example-tag">Pull Requests</span>
-                    </div>
-                    <p class="example-description">Pull requests must have at least one assigned reviewer from the top 5 most active reviewers.</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <p class="footer-text">
-            <strong>Watchflow</strong> is open source and made with 
-            <svg class="heart-icon" viewBox="0 0 24 24">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#FF6B6B" stroke="#000" stroke-width="1"/>
-            </svg>
-            by <a href="https://www.warestack.com" target="_blank" rel="noopener noreferrer" class="warestack-link">Warestack</a> and the community. <a href="https://github.com/warestack/watchflow" target="_blank" rel="noopener noreferrer">Contribute on GitHub</a>!
-        </p>
-    </footer>
-
-
-    <script src="stars.js"></script>
-    <script src="script.js"></script>
-</body>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>

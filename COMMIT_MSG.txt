@@ -1,0 +1,10 @@
+Major refactor: React/Vite landing, remove legacy scripts and docs
+
+- Replace legacy script/style stack with React 18 + TypeScript + Vite + Tailwind
+- Add /analyze route, installation_id-in-URL flow (no PAT when from install link)
+- Align example rules and mock YAML with backend parameters-based format
+- Example rule cards: tooltip-style cards (no shadow, no rounded corners), updated copy
+- Metadata: theme-color, OG/Twitter/canonical; remove temp DEPLOYMENT.md
+- Remove legacy code: stars.js, script.js, temp_old_script.js, style.css
+- README: deployment section kept; drop broken doc links
+- Dockerfile and helm-chart unchanged for deploy
